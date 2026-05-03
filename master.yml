@@ -12,6 +12,8 @@
       tags: winrm
     # RDP snippets from: https://oneuptime.com/blog/post/2026-02-21-how-to-use-ansible-to-configure-windows-remote-desktop/view
     - name: Configure Remote Desktop
+      tags: rdp
+      # Forces the default user (me) to login when the machine powers on
       block:
         - name: Enable Remote Desktop via registry
           ansible.windows.win_regedit:
@@ -37,8 +39,6 @@
             name: TermService
             state: started
             start_mode: auto
-      tags: rdp
-    # Forces the default user (me) to login when the machine powers on
     - name: Enable autologin
       ansible.windows.win_regedit:
         path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
@@ -66,7 +66,7 @@
       ansible.windows.win_timezone:
         timezone: Eastern Standard Time
       tags: time
-   # "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c" is the built-in "High Performance" power setting
+    # "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c" is the built-in "High Performance" power setting
     - name: Set power plan to high performance
       ansible.windows.win_powershell:
         script: powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
@@ -80,7 +80,7 @@
           powercfg /change hibernate-timeout-ac 0
           powercfg /change hibernate-timeout-dc 0
           powercfg /hibernate off
-    # I was having issues with this command hanging
+      # I was having issues with this command hanging
       timeout: 20
       changed_when: false
       tags: power
@@ -128,7 +128,7 @@
         secret: "{{ smb_password }}"
         state: present
       become: true
-      become_method: runas
+      become_method: ansible.builtin.runas
       become_user: "{{ ansible_user }}"
       vars:
         ansible_become_password: "{{ ansible_password }}"
@@ -139,7 +139,7 @@
     - name: Map Ludusavi backup share
       ansible.windows.win_mapped_drive:
         letter: Z
-        path: '\\{{ smb_server }}\ludusavi'
+        path: "\\\\{{ smb_server }}\\ludusavi"
         username: "gamepc"
         password: "{{ smb_password }}"
         state: present
