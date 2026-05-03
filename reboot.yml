@@ -1,0 +1,7 @@
+---
+- name: Reboot gamepc
+  hosts: gamepc
+  gather_facts: false
+  tasks:
+    - name: Reboot
+      ansible.windows.win_reboot:
