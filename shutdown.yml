@@ -1,0 +1,7 @@
+---
+- name: Shutdown gamepc
+  hosts: gamepc
+  gather_facts: false
+  tasks:
+    - name: Shutdown
+      ansible.windows.win_command: shutdown.exe /s /t 0
