@@ -10,6 +10,10 @@
         state: started
         start_mode: auto
       tags: winrm
+    - name: Set computer hostname
+      ansible.windows.win_hostname:
+        name: "{{ inventory_hostname }}"
+      tags: hostname
     # RDP snippets from: https://oneuptime.com/blog/post/2026-02-21-how-to-use-ansible-to-configure-windows-remote-desktop/view
     - name: Configure Remote Desktop
       tags: rdp
