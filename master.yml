@@ -70,11 +70,9 @@
       ansible.windows.win_timezone:
         timezone: Eastern Standard Time
       tags: time
-    # "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c" is the built-in "High Performance" power setting
     - name: Set power plan to high performance
-      ansible.windows.win_powershell:
-        script: powercfg /setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
-      changed_when: false
+      community.windows.win_power_plan:
+        name: High performance
       tags: power
     - name: Disable sleep and hibernation
       ansible.windows.win_powershell:
