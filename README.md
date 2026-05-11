@@ -1,4 +1,4 @@
-# gamepc
+# gamepc playbook
 
 This is my attempt to automate the manual steps involved with setting up my gaming PC.  Using it as an opportunity to learn some Windows automation.
 
