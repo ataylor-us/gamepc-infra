@@ -5,7 +5,8 @@ This is my attempt to automate the manual steps involved with setting up my gami
 This is *very much* a work in progress.  Things like idempotency are not fully handled, and its very non-standard compared to my other repos.
 
 ```bash
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES `#or "source source.sh"`
+# This should be loaded by direnv, if not:
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ansible-playbook master.yml
 ```
 
