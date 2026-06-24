@@ -113,12 +113,15 @@
           - ea-app
         state: present
         ignore_checksums: true
-    - name: Start Playnite fullscreen on boot
+    # Replace explorer.exe with Playnite as the shell
+    # Changing between apps would sometimes trigger it, making it hard to get back with a controller.
+    - name: Set Playnite Fullscreen as the Windows shell
       ansible.windows.win_regedit:
-        path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
-        name: Playnite
+        path: HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
+        name: Shell
         data: '"%LOCALAPPDATA%\Playnite\Playnite.FullscreenApp.exe"'
         type: ExpandString
+      tags: shell
     # Store SMB credentials in Credential Manager
     #
     # This was needed to have it automatically mount on reboot. I was a bit confused by this myself.
