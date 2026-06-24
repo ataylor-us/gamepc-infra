@@ -40,3 +40,4 @@ ansible-playbook master.yml
 18. Set a password via Settings.
 19. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
 20. Turn on **Maximum Power** for the Nvidia card.
+21. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
