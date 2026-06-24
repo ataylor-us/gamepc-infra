@@ -99,6 +99,7 @@
           - ludusavi
           - sunshine
           - kodi
+          - magpie
         state: present
     # Playnite installation seems to succeed despite throwing errors
     - name: Install Playnite
