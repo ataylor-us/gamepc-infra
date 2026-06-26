@@ -154,6 +154,15 @@
         state: present
       no_log: true
       tags: smb
+    - name: Map GamePC share
+      ansible.windows.win_mapped_drive:
+        letter: Y
+        path: "\\\\{{ smb_server }}\\gamepc-share"
+        username: "gamepc"
+        password: "{{ smb_password }}"
+        state: present
+      no_log: true
+      tags: smb
     - name: Run Win11Debloat with args
       ansible.windows.win_powershell:
         script: |

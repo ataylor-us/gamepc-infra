@@ -2,3 +2,6 @@ ansible_host: "{{ lookup('community.general.passwordstore', 'Repositories/gamepc
 ansible_password: "{{ lookup('community.general.passwordstore', 'Repositories/gamepc-infra/ansible_password') }}"
 smb_password: "{{ lookup('community.general.passwordstore', 'Repositories/gamepc-infra/smb_password') }}"
 smb_server: "{{ lookup('community.general.passwordstore', 'Repositories/gamepc-infra/smb_server') }}"
+mac_address: "{{ lookup('community.general.passwordstore', 'Repositories/gamepc-infra/mac_address') }}"
+broadcast_address: "255.255.255.255"
+wol_port: 9

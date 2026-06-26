@@ -6,3 +6,6 @@ shutdown:
 
 reboot:
     ansible-playbook playbooks/reboot.yml
+
+poweron:
+    ansible-playbook playbooks/poweron.yml

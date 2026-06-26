@@ -1,0 +1,11 @@
+---
+- name: Wake gamepc
+  hosts: gamepc
+  gather_facts: false
+  tasks:
+    - name: Boot gamepc
+      community.general.wakeonlan:
+        mac: "{{ mac_address }}"
+        broadcast: "{{ broadcast_address }}"
+        port: "{{ wol_port }}"
+      delegate_to: localhost
