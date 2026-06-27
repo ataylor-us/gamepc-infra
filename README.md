@@ -41,3 +41,4 @@ ansible-playbook master.yml
 19. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
 20. Turn on **Maximum Power** for the Nvidia card.
 21. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
+22. Install [libCEC](https://support.pulse-eight.com/support/solutions/articles/30000027406-how-to-install-libcec-windows-) manually

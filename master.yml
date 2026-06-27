@@ -122,6 +122,26 @@
         data: '"%LOCALAPPDATA%\Playnite\Playnite.FullscreenApp.exe"'
         type: ExpandString
       tags: shell
+    # Start cec-tray on boot if installed (manual)
+    - name: Check if CEC tray app is installed
+      ansible.windows.win_stat:
+        path: 'C:\Program Files\Pulse-Eight\USB-CEC Adapter\netfx\cec-tray.exe'
+      register: cec_tray
+      tags: cec
+    - name: Start Pulse-Eight CEC tray on boot
+      community.windows.win_scheduled_task:
+        name: Start CEC Tray
+        actions:
+          - path: 'C:\Program Files\Pulse-Eight\USB-CEC Adapter\netfx\cec-tray.exe'
+        triggers:
+          - type: logon
+        username: "{{ ansible_user }}"
+        logon_type: interactive_token
+        run_level: limited
+        state: present
+        enabled: true
+      when: cec_tray.stat.exists
+      tags: cec
     # Store SMB credentials in Credential Manager
     #
     # This was needed to have it automatically mount on reboot. I was a bit confused by this myself.
