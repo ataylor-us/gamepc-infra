@@ -113,35 +113,25 @@
           - ea-app
         state: present
         ignore_checksums: true
-    # Replace explorer.exe with Playnite as the shell
-    # Changing between apps would sometimes trigger it, making it hard to get back with a controller.
-    - name: Set Playnite Fullscreen as the Windows shell
+    # Replace explorer.exe with Kodi as the shell
+    - name: Set Kodi as the Windows shell
       ansible.windows.win_regedit:
         path: HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Winlogon
         name: Shell
-        data: '"%LOCALAPPDATA%\Playnite\Playnite.FullscreenApp.exe"'
-        type: ExpandString
-      tags: shell
-    # Start cec-tray on boot if installed (manual)
-    - name: Check if CEC tray app is installed
-      ansible.windows.win_stat:
-        path: 'C:\Program Files\Pulse-Eight\USB-CEC Adapter\netfx\cec-tray.exe'
-      register: cec_tray
-      tags: cec
-    - name: Start Pulse-Eight CEC tray on boot
-      community.windows.win_scheduled_task:
-        name: Start CEC Tray
-        actions:
-          - path: 'C:\Program Files\Pulse-Eight\USB-CEC Adapter\netfx\cec-tray.exe'
-        triggers:
-          - type: logon
-        username: "{{ ansible_user }}"
-        logon_type: interactive_token
-        run_level: limited
-        state: present
-        enabled: true
-      when: cec_tray.stat.exists
-      tags: cec
+        data: '"C:\Program Files\Kodi\kodi.exe"'
+        type: String
+      tags: shell,kodi
+    # Originally, I had Playnite start on boot + cec-tray.exe
+    # However, Kodi launches it's own cec instance on start, and has the ability to configure settings in its interface
+    # So now the workflow is PC boot -> Kodi -> Playnite
+    - name: Add Playnite launcher to Kodi favorites
+      ansible.windows.win_copy:
+        dest: 'C:\Users\{{ ansible_user }}\AppData\Roaming\Kodi\userdata\favourites.xml'
+        content: |
+          <favourites>
+            <favourite name="Playnite">System.Exec("C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe")</favourite>
+          </favourites>
+      tags: kodi,playnite
     # Store SMB credentials in Credential Manager
     #
     # This was needed to have it automatically mount on reboot. I was a bit confused by this myself.
