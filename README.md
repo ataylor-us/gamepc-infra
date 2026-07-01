@@ -2,7 +2,7 @@
 
 This automates some of the setup for my living room gaming PC.
 
-Much of this is bent around the state packages  were during initial installation.  For example, the `ea-app` application failed the checksum check, so there's a way to ignore that. The Playnite package returned an error despite installing fine -- so there's also a way to ignore that.
+Much of this is bent around the state packages were in during initial installation.  For example, the `ea-app` application failed the checksum check, so there's a way to ignore that. The Playnite package returned an error despite installing fine -- so there's also a way to ignore that.
 
 There's still manual steps involved, but the goal of this is to document and automate as much as I could, and to practice Windows automation.
 

@@ -7,7 +7,7 @@
     data: '"C:\Program Files\Kodi\kodi.exe"'
     type: String
 # Originally, I had Playnite start on boot + cec-tray.exe
-# However, Kodi launches it's own cec instance on start, and has the ability to configure settings in its interface
+# However, Kodi launches its own cec instance on start, and has the ability to configure settings in its interface
 # So now the workflow is PC boot -> Kodi -> Playnite
 - name: Add Playnite launcher to Kodi favorites
   ansible.windows.win_copy:

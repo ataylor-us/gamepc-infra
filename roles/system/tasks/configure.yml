@@ -29,7 +29,7 @@
   loop:
     - { name: sTimeFormat, data: "HH:mm:ss" }
     - { name: sShortTime, data: "HH:mm" }
-- name: Set timezone to America/New_York
+- name: Set timezone
   ansible.windows.win_timezone:
     timezone: "{{ system_timezone }}"
 # Enforces preferred power settings
