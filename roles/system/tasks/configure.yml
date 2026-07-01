@@ -8,6 +8,7 @@
 - name: Set computer hostname
   ansible.windows.win_hostname:
     name: "{{ inventory_hostname }}"
+# Forces the default user (me) to login when the machine powers on
 - name: Enable autologin
   ansible.windows.win_regedit:
     path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
