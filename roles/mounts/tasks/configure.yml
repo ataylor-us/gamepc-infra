@@ -1,0 +1,32 @@
+---
+# Store SMB credentials in Credential Manager
+#
+# This was needed to have it automatically mount on reboot. I was a bit confused by this myself.
+# The WinRM session doesn't have the ability so store this, but using "runas" allows to to access DPAPI data.
+#
+# This is done a bit cyclically.  These credentials are stored to be used later on login, where it can unlock any SMB shares, which are saved by the server.
+- name: Store SMB credentials
+  changed_when: false
+  ansible.windows.win_credential:
+    name: "{{ smb_server }}"
+    type: domain_password
+    username: gamepc
+    secret: "{{ smb_password }}"
+    state: present
+  become: true
+  become_method: ansible.builtin.runas
+  become_user: "{{ ansible_user }}"
+  vars:
+    ansible_become_password: "{{ ansible_password }}"
+  no_log: true
+# Mount & map drives
+# This should mount it instantly & persist on reboot
+- name: Map SMB shares to drive letters
+  ansible.windows.win_mapped_drive:
+    letter: "{{ item.letter }}"
+    path: "\\\\{{ smb_server }}\\{{ item.share }}"
+    username: "gamepc"
+    password: "{{ smb_password }}"
+    state: present
+  loop: "{{ mapped_drives }}"
+  no_log: true

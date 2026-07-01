@@ -1,8 +1,11 @@
 # gamepc playbook
 
-This is my attempt to automate the manual steps involved with setting up my gaming PC.  Using it as an opportunity to learn some Windows automation.
+This automates some of the setup for my living room gaming PC.
 
-This is *very much* a work in progress.  Things like idempotency are not fully handled, and its very non-standard compared to my other repos.
+Much of this is bent around the state packages  were during initial installation.  For example, the `ea-app` application failed the checksum check, so there's a way to ignore that. The Playnite package returned an error despite installing fine -- so there's also a way to ignore that.
+
+There's still manual steps involved, but the goal of this is to document and automate as much as I could, and to practice Windows automation.
+
 
 ```bash
 # This should be loaded by direnv, if not:
@@ -42,3 +45,9 @@ ansible-playbook master.yml
 20. Turn on **Maximum Power** for the Nvidia card.
 21. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
 22. Install [libCEC](https://support.pulse-eight.com/support/solutions/articles/30000027406-how-to-install-libcec-windows-) manually
+
+## Things not covered:
++ Kodi settings
++ Playnite settings
++ Ludusavi save mapping
++ AntiMicroX keymaps

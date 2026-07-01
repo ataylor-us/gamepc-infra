@@ -1,0 +1,5 @@
+---
+- name: Install packages using Chocolatey
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ packages }}"
+    state: present

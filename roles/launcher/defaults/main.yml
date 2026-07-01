@@ -1,0 +1,6 @@
+---
+packages:
+  - kodi
+  - magpie
+choco_ignore_error_packages:
+  - playnite

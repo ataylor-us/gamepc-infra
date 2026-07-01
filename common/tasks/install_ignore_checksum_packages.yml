@@ -1,0 +1,6 @@
+---
+- name: Install packages using Chocolatey (ignore checksums)
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ choco_ignore_checksum_packages }}"
+    state: present
+    ignore_checksums: true

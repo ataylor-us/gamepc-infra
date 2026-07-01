@@ -1,0 +1,8 @@
+---
+packages:
+  - steam
+  - epicgameslauncher
+  - goggalaxy
+  - ludusavi
+choco_ignore_checksum_packages:
+  - ea-app

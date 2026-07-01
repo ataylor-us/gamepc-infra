@@ -1,0 +1,48 @@
+---
+# The script in the README starts this, *however* I've had issues where it doesn't persist on reboot
+- name: Ensure WinRM starts on boot
+  ansible.windows.win_service:
+    name: WinRM
+    state: started
+    start_mode: auto
+- name: Set computer hostname
+  ansible.windows.win_hostname:
+    name: "{{ inventory_hostname }}"
+- name: Enable autologin
+  ansible.windows.win_regedit:
+    path: HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: String
+  loop:
+    - { name: AutoAdminLogon, data: "1" }
+    - { name: DefaultUserName, data: "{{ ansible_user }}" }
+    - { name: DefaultPassword, data: "{{ ansible_password }}" }
+  no_log: true
+- name: Set 24-hour time format
+  ansible.windows.win_regedit:
+    path: HKCU:\Control Panel\International
+    name: "{{ item.name }}"
+    data: "{{ item.data }}"
+    type: String
+  loop:
+    - { name: sTimeFormat, data: "HH:mm:ss" }
+    - { name: sShortTime, data: "HH:mm" }
+- name: Set timezone to America/New_York
+  ansible.windows.win_timezone:
+    timezone: "{{ system_timezone }}"
+# Enforces preferred power settings
+- name: Set power plan to high performance
+  community.windows.win_power_plan:
+    name: "{{ power_plan }}"
+- name: Disable sleep and hibernation
+  ansible.windows.win_powershell:
+    script: |
+      powercfg /change standby-timeout-ac 0
+      powercfg /change standby-timeout-dc 0
+      powercfg /change hibernate-timeout-ac 0
+      powercfg /change hibernate-timeout-dc 0
+      powercfg /hibernate off
+  # I was having issues with this command hanging
+  timeout: 20
+  changed_when: false

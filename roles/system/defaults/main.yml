@@ -1,0 +1,8 @@
+---
+packages:
+  - dotnet-desktopruntime
+  - vcredist-all
+  - directx
+  - nvidia-display-driver
+system_timezone: Eastern Standard Time
+power_plan: High performance

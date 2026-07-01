@@ -1,0 +1,6 @@
+---
+- name: Install packages using Chocolatey (ignore errors)
+  chocolatey.chocolatey.win_chocolatey:
+    name: "{{ choco_ignore_error_packages }}"
+    state: present
+  failed_when: false

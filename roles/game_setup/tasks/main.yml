@@ -1,0 +1,5 @@
+---
+- name: Install packages
+  ansible.builtin.import_tasks: common/tasks/install_packages.yml
+- name: Install packages (ignore checksums)
+  ansible.builtin.import_tasks: common/tasks/install_ignore_checksum_packages.yml

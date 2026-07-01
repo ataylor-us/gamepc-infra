@@ -1,0 +1,4 @@
+---
+mapped_drives:
+  - { letter: "Z", share: ludusavi }
+  - { letter: "Y", share: gamepc-share }
