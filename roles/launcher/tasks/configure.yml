@@ -15,4 +15,5 @@
     content: |
       <favourites>
         <favourite name="Playnite">System.Exec("C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe")</favourite>
+        <favourite name="Explorer">System.Exec("C:\Windows\explorer.exe")</favourite>
       </favourites>
