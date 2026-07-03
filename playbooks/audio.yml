@@ -1,0 +1,17 @@
+---
+- name: Switch gamepc audio output
+  hosts: gamepc
+  gather_facts: false
+  tasks:
+    - name: Set default playback device
+      # Cursed powershell snippet
+      # Run the playbook with `-e audio_device_match=foobar` to match with audio device
+      # Examples in the justfile
+      ansible.windows.win_powershell:
+        script: |
+          $dev = Get-AudioDevice -List |
+            Where-Object { $_.Type -eq 'Playback' -and $_.Name -like '*{{ audio_device_match }}*' } |
+            Select-Object -First 1
+          if (-not $dev) { throw "No playback device matching {{ audio_device_match }}" }
+          $dev | Set-AudioDevice
+          Set-AudioDevice -PlaybackMute $false

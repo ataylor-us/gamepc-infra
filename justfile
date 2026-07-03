@@ -9,3 +9,9 @@ reboot:
 
 poweron:
     ansible-playbook playbooks/poweron.yml
+
+headphones:
+    ansible-playbook playbooks/audio.yml -e audio_device_match=G735
+
+soundbar:
+    ansible-playbook playbooks/audio.yml -e audio_device_match=SAMSUNG
