@@ -1,0 +1,10 @@
+---
+- name: Debloat gamepc
+  hosts: gamepc
+  gather_facts: false
+  tasks:
+    # This will always return changed
+    - name: Run Win11Debloat with args
+      ansible.windows.win_powershell:
+        script: |-
+          & ([scriptblock]::Create((irm "https://debloat.raphi.re/"))) -Silent -RunDefaults -DisableLocationServices -RemoveApps -Apps "Microsoft.OneDrive" -RemoveCommApps

@@ -10,6 +10,9 @@ reboot:
 poweron:
     ansible-playbook playbooks/poweron.yml
 
+debloat:
+    ansible-playbook playbooks/debloat.yml
+
 headphones:
     ansible-playbook playbooks/audio.yml -e audio_device_match=G735
 
