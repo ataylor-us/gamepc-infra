@@ -4,5 +4,6 @@ packages:
   - epicgameslauncher
   - goggalaxy
   - ludusavi
+  - sharex
 choco_ignore_checksum_packages:
   - ea-app
