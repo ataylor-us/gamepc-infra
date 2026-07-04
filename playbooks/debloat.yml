@@ -7,4 +7,4 @@
     - name: Run Win11Debloat with args
       ansible.windows.win_powershell:
         script: |-
-          & ([scriptblock]::Create((irm "https://debloat.raphi.re/"))) -Silent -RunDefaults -DisableLocationServices -RemoveApps -Apps "Microsoft.OneDrive" -RemoveCommApps -DisableGameBarIntegration
+          & ([scriptblock]::Create((irm "https://debloat.raphi.re/"))) -Silent -RunDefaults -DisableLocationServices -RemoveApps -Apps "Microsoft.OneDrive" -RemoveCommApps -RemoveGamingApps -DisableGameBarIntegration 
