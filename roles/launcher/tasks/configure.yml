@@ -6,14 +6,27 @@
     name: Shell
     data: '"C:\Program Files\Kodi\kodi.exe"'
     type: String
-# Originally, I had Playnite start on boot + cec-tray.exe
-# However, Kodi launches its own cec instance on start, and has the ability to configure settings in its interface
-# So now the workflow is PC boot -> Kodi -> Playnite
-- name: Add Playnite launcher to Kodi favorites
+# Cursed scripts, but tl;dr--these just allow me to change the audio output from within Kodi (or Playnite)
+- name: Deploy audio switch script
+  ansible.windows.win_copy:
+    dest: "C:\\Users\\{{ ansible_user }}\\Documents\\audio.ps1"
+    content: |
+      param($match)
+      $dev = Get-AudioDevice -List |
+        Where-Object { $_.Type -eq 'Playback' -and $_.Name -like "*$match*" } |
+        Select-Object -First 1
+      if (-not $dev) { throw "No playback device matching $match" }
+      $dev | Set-AudioDevice
+      Set-AudioDevice -PlaybackMute $false
+- name: Add shortcuts to Kodi favorites
+  vars:
+    psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Users\{{ ansible_user }}\Documents
   ansible.windows.win_copy:
     dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Roaming\\Kodi\\userdata\\favourites.xml"
     content: |
       <favourites>
-        <favourite name="Playnite">System.Exec("C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe")</favourite>
-        <favourite name="Explorer">System.Exec("C:\Windows\explorer.exe")</favourite>
+        <favourite name="Playnite" thumb="DefaultAddonGame.png">System.Exec("C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe")</favourite>
+        <favourite name="Audio: Headphones" thumb="DefaultAddonAudioDecoder.png">System.Exec("{{ psrun }}\audio.ps1 G735")</favourite>
+        <favourite name="Audio: Soundbar" thumb="DefaultAddonVisualization.png">System.Exec("{{ psrun }}\audio.ps1 SAMSUNG")</favourite>
+        <favourite name="Explorer" thumb="DefaultFolder.png">System.Exec("C:\Windows\explorer.exe")</favourite>
       </favourites>

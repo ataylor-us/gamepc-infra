@@ -36,7 +36,7 @@
 - name: Set power plan to high performance
   community.windows.win_power_plan:
     name: "{{ power_plan }}"
-# This is used for the audio playbook
+# This is used for the change audio shortcuts
 - name: Ensure AudioDeviceCmdlets module is installed
   community.windows.win_psmodule:
     name: AudioDeviceCmdlets

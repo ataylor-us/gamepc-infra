@@ -14,7 +14,7 @@ debloat:
     ansible-playbook playbooks/debloat.yml
 
 headphones:
-    ansible-playbook playbooks/audio.yml -e audio_device_match=G735
+    ansible gamepc -m ansible.windows.win_shell -a "C:\Users\Alex\Documents\audio.ps1 G735"
 
 soundbar:
-    ansible-playbook playbooks/audio.yml -e audio_device_match=SAMSUNG
+    ansible gamepc -m ansible.windows.win_shell -a "C:\Users\Alex\Documents\audio.ps1 SAMSUNG"
