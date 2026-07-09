@@ -41,6 +41,7 @@
   community.windows.win_psmodule:
     name: AudioDeviceCmdlets
     state: present
+    accept_license: true
 - name: Disable sleep and hibernation
   ansible.windows.win_powershell:
     script: |
