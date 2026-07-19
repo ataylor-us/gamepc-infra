@@ -18,6 +18,7 @@
       if (-not $dev) { throw "No playback device matching $match" }
       $dev | Set-AudioDevice
       Set-AudioDevice -PlaybackMute $false
+# TODO: Debug: it's likely the above script -- but audio changing is unreliable at sometimes needs a few tries.
 - name: Add shortcuts to Kodi favorites
   vars:
     psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Users\{{ ansible_user }}\Documents
