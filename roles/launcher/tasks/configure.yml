@@ -22,11 +22,12 @@
 - name: Add shortcuts to Kodi favorites
   vars:
     psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Users\{{ ansible_user }}\Documents
+    playnite: C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe
   ansible.windows.win_copy:
     dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Roaming\\Kodi\\userdata\\favourites.xml"
     content: |
       <favourites>
-        <favourite name="Playnite" thumb="DefaultAddonGame.png">System.Exec("C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe")</favourite>
+        <favourite name="Playnite" thumb="DefaultAddonGame.png">System.Exec("{{ playnite }}")</favourite>
         <favourite name="Audio: Headphones" thumb="DefaultAddonAudioDecoder.png">System.Exec("{{ psrun }}\audio.ps1 G735")</favourite>
         <favourite name="Audio: Soundbar" thumb="DefaultAddonVisualization.png">System.Exec("{{ psrun }}\audio.ps1 SAMSUNG")</favourite>
         <favourite name="Explorer" thumb="DefaultFolder.png">System.Exec("C:\Windows\explorer.exe")</favourite>

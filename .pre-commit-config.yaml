@@ -1,0 +1,20 @@
+---
+repos:
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: Detect hardcoded secrets
+        description: Detect hardcoded secrets using Gitleaks
+        entry: gitleaks git --pre-commit --redact --staged --verbose
+        language: system
+        pass_filenames: false
+      - id: ansible-lint
+        name: Validate with linter
+        description: This hook runs ansible-lint.
+        entry: ansible-lint -v --force-color
+        language: python
+        language_version: python3.14
+        pass_filenames: false
+        always_run: true
+        additional_dependencies:
+          - ansible-core>=2.19.0
