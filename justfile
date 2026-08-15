@@ -1,6 +1,8 @@
 default:
     ansible-playbook master.yml
 
+alias poweroff := shutdown
+
 shutdown:
     ansible-playbook playbooks/shutdown.yml
 
