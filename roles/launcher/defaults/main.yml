@@ -2,5 +2,6 @@
 packages:
   - kodi
   - magpie
+  - soundvolumeview
 choco_ignore_error_packages:
   - playnite

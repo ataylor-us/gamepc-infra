@@ -12,13 +12,8 @@
     dest: "C:\\Users\\{{ ansible_user }}\\Documents\\audio.ps1"
     content: |
       param($match)
-      $dev = Get-AudioDevice -List |
-        Where-Object { $_.Type -eq 'Playback' -and $_.Name -like "*$match*" } |
-        Select-Object -First 1
-      if (-not $dev) { throw "No playback device matching $match" }
-      $dev | Set-AudioDevice
-      Set-AudioDevice -PlaybackMute $false
-# TODO: Debug: it's likely the above script -- but audio changing is unreliable at sometimes needs a few tries.
+      $id = @{ G735 = 'G735 Gaming Headset\Device\Speakers\Render'; SAMSUNG = 'NVIDIA High Definition Audio\Device\SAMSUNG\Render' }[$match]
+      & 'C:\ProgramData\chocolatey\lib\soundvolumeview\tools\SoundVolumeView.exe' /SetDefault $id all
 - name: Add shortcuts to Kodi favorites
   vars:
     psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Users\{{ ansible_user }}\Documents

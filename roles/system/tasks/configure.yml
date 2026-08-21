@@ -36,12 +36,6 @@
 - name: Set power plan to high performance
   community.windows.win_power_plan:
     name: "{{ power_plan }}"
-# This is used for the change audio shortcuts
-- name: Ensure AudioDeviceCmdlets module is installed
-  community.windows.win_psmodule:
-    name: AudioDeviceCmdlets
-    state: present
-    accept_license: true
 - name: Disable sleep and hibernation
   ansible.windows.win_powershell:
     script: |
