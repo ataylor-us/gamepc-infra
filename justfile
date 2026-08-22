@@ -1,9 +1,11 @@
 default:
     ansible-playbook master.yml
 
-alias poweroff := shutdown
-
 shutdown:
+    ansible-playbook playbooks/shutdown.yml
+
+# Duplicate so autocomplete picks it up
+poweroff:
     ansible-playbook playbooks/shutdown.yml
 
 reboot:
