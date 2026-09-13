@@ -1,3 +1,5 @@
+audio_script := 'C:\Users\{{ ansible_user }}\Documents\audio.ps1'
+
 default:
     ansible-playbook master.yml
 
@@ -18,7 +20,7 @@ debloat:
     ansible-playbook playbooks/debloat.yml
 
 headphones:
-    ansible gamepc -m ansible.windows.win_shell -a "C:\Users\Alex\Documents\audio.ps1 G735"
+    ansible gamepc -m ansible.windows.win_shell -a "{{ audio_script }} G735"
 
 soundbar:
-    ansible gamepc -m ansible.windows.win_shell -a "C:\Users\Alex\Documents\audio.ps1 SAMSUNG"
+    ansible gamepc -m ansible.windows.win_shell -a "{{ audio_script }} SAMSUNG"

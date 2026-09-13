@@ -5,3 +5,22 @@ packages:
   - soundvolumeview
 choco_ignore_error_packages:
   - playnite
+audio_script: C:\Users\{{ ansible_user }}\Documents\audio.ps1
+audio_devices:
+  G735: G735 Gaming Headset\Device\Speakers\Render
+  SAMSUNG: NVIDIA High Definition Audio\Device\SAMSUNG\Render
+psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File
+# kodi 'favourites' is correct
+kodi_favourites:
+  - name: Playnite
+    thumb: DefaultAddonGame.png
+    exec: C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe
+  - name: "Audio: Headphones"
+    thumb: DefaultAddonAudioDecoder.png
+    exec: "{{ psrun }} {{ audio_script }} G735"
+  - name: "Audio: Soundbar"
+    thumb: DefaultAddonVisualization.png
+    exec: "{{ psrun }} {{ audio_script }} SAMSUNG"
+  - name: Explorer
+    thumb: DefaultFolder.png
+    exec: C:\Windows\explorer.exe

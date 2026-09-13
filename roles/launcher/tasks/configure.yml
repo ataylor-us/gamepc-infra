@@ -9,21 +9,21 @@
 # Cursed scripts, but tl;dr--these just allow me to change the audio output from within Kodi (or Playnite)
 - name: Deploy audio switch script
   ansible.windows.win_copy:
-    dest: "C:\\Users\\{{ ansible_user }}\\Documents\\audio.ps1"
+    dest: "{{ audio_script }}"
     content: |
       param($match)
-      $id = @{ G735 = 'G735 Gaming Headset\Device\Speakers\Render'; SAMSUNG = 'NVIDIA High Definition Audio\Device\SAMSUNG\Render' }[$match]
+      $id = @{
+      {% for key, id in audio_devices.items() %}
+        {{ key }} = '{{ id }}'
+      {% endfor %}
+      }[$match]
       & 'C:\ProgramData\chocolatey\lib\soundvolumeview\tools\SoundVolumeView.exe' /SetDefault $id all
 - name: Add shortcuts to Kodi favorites
-  vars:
-    psrun: powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\Users\{{ ansible_user }}\Documents
-    playnite: C:\Users\{{ ansible_user }}\AppData\Local\Playnite\Playnite.FullscreenApp.exe
   ansible.windows.win_copy:
     dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Roaming\\Kodi\\userdata\\favourites.xml"
     content: |
       <favourites>
-        <favourite name="Playnite" thumb="DefaultAddonGame.png">System.Exec("{{ playnite }}")</favourite>
-        <favourite name="Audio: Headphones" thumb="DefaultAddonAudioDecoder.png">System.Exec("{{ psrun }}\audio.ps1 G735")</favourite>
-        <favourite name="Audio: Soundbar" thumb="DefaultAddonVisualization.png">System.Exec("{{ psrun }}\audio.ps1 SAMSUNG")</favourite>
-        <favourite name="Explorer" thumb="DefaultFolder.png">System.Exec("C:\Windows\explorer.exe")</favourite>
+      {% for fav in kodi_favourites %}
+        <favourite name="{{ fav.name }}" thumb="{{ fav.thumb }}">System.Exec("{{ fav.exec }}")</favourite>
+      {% endfor %}
       </favourites>
