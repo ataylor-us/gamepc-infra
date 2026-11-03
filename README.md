@@ -44,6 +44,15 @@ ansible-playbook master.yml
 19. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
 20. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
 
+## Fan curve
+
+Playing with the fan curve settings in BIOS.  All headers on PWM.
+
+| Header   | Temp source | Step up/down | Curve                                  |
+| -------- | ----------- | ------------ | -------------------------------------- |
+| CPU 1    | CPU         | 0.7s         | 0°C 20%, 55°C 35%, 75°C 70%, 85°C 100% |
+| System 1 | CPU         | 0.7s         | 0°C 20%, 35°C 30%, 80°C 70%, 91°C 100% |
+
 ## Things not covered:
 + Kodi settings
 + Playnite settings
