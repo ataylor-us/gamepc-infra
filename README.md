@@ -29,10 +29,8 @@ ansible-playbook master.yml
 11. Skip the password.
 12. Decline all privacy settings (if asked).
 13. Boot into Windows.
-14. ~~Get wireless drivers [from the motherboard website](https://www.msi.com/Motherboard/MAG-Z690-TOMAHAWK-WIFI-DDR4/support#driver) onto the PC.~~
-15. ~~Connect to the IoT network.~~
-16. Allow Windows Update to run; reboot when asked.
-17. When the MSI Recommended Installer appears, deselect the unnecessary entries. I selected:
+14. Allow Windows Update to run; reboot when asked.
+15. When the MSI Recommended Installer appears, deselect the unnecessary entries. I selected:
     - Intel Chipset Drivers
     - Intel SVGA Drivers
     - Intel Network Drivers
@@ -40,9 +38,9 @@ ansible-playbook master.yml
     - Intel WiFi Drivers (reselect)
     - Realtek HD Universal Drivers
     - Intel Serial IO Drivers
-18. Set a password via Settings.
-19. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
-20. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
+16. Set a password via Settings.
+17. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
+18. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
 
 ## Fan curve
 
