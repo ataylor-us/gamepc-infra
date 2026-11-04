@@ -1,0 +1,6 @@
+<!-- {{ ansible_managed }} -->
+<favourites>
+{% for fav in kodi_favourites %}
+  <favourite name="{{ fav.name }}" thumb="{{ fav.thumb }}">System.Exec("{{ fav.exec }}")</favourite>
+{% endfor %}
+</favourites>

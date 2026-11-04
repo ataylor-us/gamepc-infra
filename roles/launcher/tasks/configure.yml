@@ -6,26 +6,11 @@
     name: Shell
     data: '"C:\Program Files\Kodi\kodi.exe"'
     type: String
-# Cursed audio change (headphone/soundbar matching) powershell script
 - name: Deploy audio switch script
   ansible.windows.win_copy:
+    src: audio.ps1
     dest: "{{ audio_script }}"
-    content: |
-      param($match)
-      $root = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\MMDevices\Audio\Render'
-      $guid = Get-ChildItem $root | Where-Object {
-        $p = Get-ItemProperty ($_.PSPath + '\Properties') -EA 0
-        "$($p.'{b3f8fa53-0004-438e-9003-51a46e139bfc},6') $($p.'{a45c254e-df1c-4efd-8020-67d146a850e0},2')" -like "*$match*" -and
-        (Get-ItemProperty $_.PSPath).DeviceState -eq 1
-      } | Select-Object -First 1 -ExpandProperty PSChildName
-      if (-not $guid) { throw "No active endpoint matching $match" }
-      & 'C:\ProgramData\chocolatey\lib\soundvolumeview\tools\SoundVolumeView.exe' /SetDefault "{0.0.0.00000000}.$guid" all
 - name: Add shortcuts to Kodi favorites
-  ansible.windows.win_copy:
+  ansible.windows.win_template:
+    src: favourites.xml.j2
     dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Roaming\\Kodi\\userdata\\favourites.xml"
-    content: |
-      <favourites>
-      {% for fav in kodi_favourites %}
-        <favourite name="{{ fav.name }}" thumb="{{ fav.thumb }}">System.Exec("{{ fav.exec }}")</favourite>
-      {% endfor %}
-      </favourites>
