@@ -39,8 +39,9 @@ ansible-playbook master.yml
     - Realtek HD Universal Drivers
     - Intel Serial IO Drivers
 16. Set a password via Settings.
-17. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
-18. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
+17. Turn on BitLocker.
+18. After updating, follow steps 1–5 of [faezehghiasi/ansible-windows-playbooks](https://github.com/faezehghiasi/ansible-windows-playbooks) to prepare the host for Ansible.
+19. Install [AntiMicroX](https://github.com/antimicroX/antimicroX) manually
 
 ## Fan curve
 
