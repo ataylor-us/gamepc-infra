@@ -1,0 +1,13 @@
+---
+- name: Listen on all interfaces
+  ansible.windows.win_environment:
+    name: OLLAMA_HOST
+    value: 0.0.0.0
+    level: user
+- name: Allow Ollama through Windows Firewall
+  ansible.windows.win_firewall_rule:
+    name: Ollama
+    localport: 11434
+    protocol: tcp
+    direction: in
+    action: allow
