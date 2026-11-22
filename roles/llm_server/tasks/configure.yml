@@ -4,6 +4,11 @@
     name: OLLAMA_HOST
     value: 0.0.0.0
     level: user
+- name: Increase context length
+  ansible.windows.win_environment:
+    name: OLLAMA_CONTEXT_LENGTH
+    value: "16384"
+    level: user
 - name: Allow Ollama through Windows Firewall
   ansible.windows.win_firewall_rule:
     name: Ollama
@@ -11,3 +16,21 @@
     protocol: tcp
     direction: in
     action: allow
+- name: Run Ollama at boot
+  community.windows.win_scheduled_task:
+    name: Ollama
+    actions:
+      - path: C:\Users\{{ ansible_user }}\AppData\Local\Programs\Ollama\ollama.exe
+        arguments: serve
+    triggers:
+      - type: boot
+      - type: registration
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+    logon_type: s4u
+    execution_time_limit: PT0S
+- name: Pull models
+  ansible.windows.win_command:
+    cmd: C:\Users\{{ ansible_user }}\AppData\Local\Programs\Ollama\ollama.exe pull {{ item }}
+    creates: C:\Users\{{ ansible_user }}\.ollama\models\manifests\registry.ollama.ai\library\{{ item | replace(':', '/') }}
+  loop: "{{ models }}"

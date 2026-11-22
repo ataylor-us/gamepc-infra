@@ -1,3 +1,5 @@
 ---
 packages:
   - ollama
+models:
+  - qwen3:14b
