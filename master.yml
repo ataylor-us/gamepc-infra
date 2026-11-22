@@ -8,4 +8,5 @@
     - game_setup
     - launcher
     - mounts
-    - llm-server
+    - role: llm_server
+      tags: ollama
