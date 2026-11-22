@@ -7,7 +7,7 @@
 - name: Increase context length
   ansible.windows.win_environment:
     name: OLLAMA_CONTEXT_LENGTH
-    value: "16384"
+    value: "8192"
     level: user
 - name: Allow Ollama through Windows Firewall
   ansible.windows.win_firewall_rule:

@@ -6,12 +6,15 @@ Much of this is bent around the state packages were in during initial installati
 
 There's still manual steps involved, but the goal of this is to document and automate as much as I could, and to practice Windows automation.
 
-
 ```bash
 # This should be loaded by direnv, if not:
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 ansible-playbook master.yml
 ```
+
+## LLM
+
+This box is also being used as an LLM server to test out local models.
 
 ## Manual Install Steps
 
